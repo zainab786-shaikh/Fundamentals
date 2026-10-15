@@ -1,0 +1,89 @@
+<div class="sidebar-container">
+
+  <!-- Brand Header -->
+  <div class="brand">
+    <div class="brand-icon">
+      <mat-icon>school</mat-icon>
+    </div>
+    <div class="brand-text">
+      <span class="brand-name">Fundamentals</span>
+      <span class="brand-sub">CS Learning Hub</span>
+    </div>
+  </div>
+
+  <!-- Search -->
+  <div class="search-bar">
+    <div class="search-inner">
+      <mat-icon>search</mat-icon>
+      <input
+        type="text"
+        placeholder="Search topics…"
+        [(ngModel)]="searchQuery"
+        (input)="onSearch()"
+      />
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <ng-container *ngIf="loading">
+    <div class="loading-state">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      <p class="loading-text">Loading subjects…</p>
+    </div>
+  </ng-container>
+
+  <!-- Error State -->
+  <ng-container *ngIf="!loading && error">
+    <div class="error-state">
+      <mat-icon class="error-icon">cloud_off</mat-icon>
+      <p>Could not load subjects.<br>Check your connection or push to GitHub first.</p>
+    </div>
+  </ng-container>
+
+  <!-- Subjects List -->
+  <ng-container *ngIf="!loading && !error">
+    <div class="subjects-label">{{ filteredSubjects.length }} Subjects</div>
+
+    <mat-accordion [multi]="true" class="subjects-accordion">
+      <mat-expansion-panel
+        *ngFor="let subject of filteredSubjects; let i = index; trackBy: trackSubject"
+        class="subject-panel"
+        [expanded]="activePath.startsWith(subject.name) || searchQuery.length > 0">
+
+        <mat-expansion-panel-header>
+          <mat-panel-title class="panel-title">
+            <span class="subject-icon-wrap" [ngClass]="getIconClass(i)">
+              <mat-icon class="subject-icon">{{ subject.icon }}</mat-icon>
+            </span>
+            <span class="subject-name">{{ subject.name }}</span>
+            <span class="topic-count">{{ subject.topics.length }}</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <!-- Topics -->
+        <div class="topics-list">
+          <button
+            *ngFor="let topic of subject.topics; trackBy: trackTopic"
+            class="topic-item"
+            [class.active]="activePath === topic.path"
+            (click)="select(subject, topic)"
+            [matTooltip]="topic.name.length > 30 ? topic.name : ''"
+            matTooltipPosition="right">
+            <mat-icon class="topic-icon">
+              {{ activePath === topic.path ? 'menu_book' : 'article' }}
+            </mat-icon>
+            <span class="topic-name">{{ topic.name }}</span>
+          </button>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+  </ng-container>
+
+  <!-- Footer -->
+  <div class="sidebar-footer">
+    <span class="footer-dot"></span>
+    <span>Live from GitHub</span>
+  </div>
+
+</div>

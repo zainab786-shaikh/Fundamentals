@@ -1,0 +1,308 @@
+// ─── Angular Material Theme (Light) ──────────────────────────────────────────
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$primary-palette: mat.define-palette(mat.$indigo-palette, 700, 400, 900);
+$accent-palette:  mat.define-palette(mat.$deep-purple-palette, 600, 300, 800);
+$warn-palette:    mat.define-palette(mat.$red-palette);
+
+$light-theme: mat.define-light-theme((
+  color: (
+    primary: $primary-palette,
+    accent:  $accent-palette,
+    warn:    $warn-palette,
+  ),
+  typography: mat.define-typography-config(
+    $font-family: 'Inter, sans-serif',
+  ),
+  density: 0,
+));
+
+@include mat.all-component-themes($light-theme);
+
+// ─── CSS Variables (Light) ────────────────────────────────────────────────────
+:root {
+  // Backgrounds
+  --bg-primary:    #f8f9fc;
+  --bg-secondary:  #ffffff;
+  --bg-sidebar:    #ffffff;
+  --bg-card:       #ffffff;
+  --bg-hover:      #f0f2ff;
+  --bg-active:     #e8ecff;
+
+  // Accent colors
+  --accent-indigo:  #4f46e5;
+  --accent-purple:  #7c3aed;
+  --accent-blue:    #3b82f6;
+  --accent-teal:    #0d9488;
+  --accent-green:   #059669;
+
+  // Borders
+  --border:        rgba(0,0,0,0.08);
+  --border-accent: rgba(79,70,229,0.25);
+
+  // Text
+  --text-primary:   #1e1b4b;
+  --text-secondary: #4338ca;
+  --text-body:      #374151;
+  --text-muted:     #6b7280;
+  --text-faint:     #9ca3af;
+
+  // Dimensions
+  --sidebar-w:     290px;
+  --topbar-h:      60px;
+
+  // Radii
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  // Shadows
+  --shadow-sm:   0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:   0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-card: 0 1px 4px rgba(79,70,229,0.08);
+}
+
+// ─── Reset & Base ─────────────────────────────────────────────────────────────
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--bg-primary);
+  color: var(--text-body);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+// ─── Scrollbar ────────────────────────────────────────────────────────────────
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(79,70,229,0.2);
+  border-radius: 99px;
+  &:hover { background: rgba(79,70,229,0.35); }
+}
+
+// ─── Selection ────────────────────────────────────────────────────────────────
+::selection {
+  background: rgba(79,70,229,0.15);
+  color: var(--accent-indigo);
+}
+
+// ─── Markdown Content Styles ──────────────────────────────────────────────────
+.markdown-body {
+  line-height: 1.85;
+  color: var(--text-body);
+  font-size: 15.5px;
+  max-width: 860px;
+
+  // Headings
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    margin: 2em 0 0.65em;
+    color: var(--text-primary);
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-top: 0;
+    padding-bottom: 0.55em;
+    border-bottom: 2px solid rgba(79,70,229,0.15);
+    background: linear-gradient(135deg, var(--accent-indigo), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  h2 {
+    font-size: 1.45rem;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid var(--border);
+    color: var(--accent-indigo);
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    color: var(--accent-purple);
+  }
+
+  h4 {
+    font-size: 1.05rem;
+    color: var(--accent-teal);
+  }
+
+  h5 { font-size: 0.95rem; color: var(--text-muted); }
+  h6 { font-size: 0.875rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  p { margin: 0.85em 0; }
+
+  a {
+    color: var(--accent-indigo);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(79,70,229,0.3);
+    transition: border-color 0.2s, color 0.2s;
+    &:hover { color: var(--accent-purple); border-bottom-color: var(--accent-purple); }
+  }
+
+  strong { color: var(--text-primary); font-weight: 700; }
+  em     { color: var(--accent-purple); font-style: italic; }
+  del    { color: var(--text-faint); text-decoration: line-through; }
+
+  // Lists
+  ul, ol {
+    margin: 0.8em 0 0.8em 1.5em;
+    li {
+      margin: 0.3em 0;
+      line-height: 1.75;
+      color: var(--text-body);
+    }
+  }
+  ul li::marker { color: var(--accent-indigo); font-size: 0.9em; }
+  ol li::marker { color: var(--accent-purple); font-weight: 700; }
+  ul ul, ol ol, ul ol, ol ul { margin-top: 0.2em; margin-bottom: 0.2em; }
+
+  // Inline code
+  code {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.84em;
+    background: rgba(79,70,229,0.08);
+    color: var(--accent-indigo);
+    padding: 0.15em 0.45em;
+    border-radius: 4px;
+    border: 1px solid rgba(79,70,229,0.15);
+  }
+
+  // Code blocks
+  pre {
+    background: #1e1b4b;
+    border-radius: var(--radius-md);
+    padding: 1.2em 1.4em;
+    overflow-x: auto;
+    margin: 1.3em 0;
+    box-shadow: var(--shadow-md);
+    border-left: 4px solid var(--accent-indigo);
+
+    code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: #e0e7ff;
+      font-size: 0.875rem;
+    }
+  }
+
+  // Blockquotes
+  blockquote {
+    margin: 1.2em 0;
+    padding: 0.8em 1.2em;
+    background: linear-gradient(135deg, rgba(79,70,229,0.05), rgba(124,58,237,0.04));
+    border-left: 4px solid var(--accent-indigo);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+
+    p { margin: 0; color: var(--text-muted); font-style: italic; }
+    > p:first-child { margin-top: 0; }
+    > p:last-child  { margin-bottom: 0; }
+  }
+
+  // Tables
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.4em 0;
+    font-size: 0.9rem;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+
+    th {
+      background: linear-gradient(135deg, rgba(79,70,229,0.08), rgba(124,58,237,0.06));
+      color: var(--accent-indigo);
+      font-weight: 700;
+      text-align: left;
+      padding: 0.75em 1em;
+      border-bottom: 2px solid rgba(79,70,229,0.15);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    td {
+      padding: 0.6em 1em;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-body);
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(79,70,229,0.03); }
+    tr:nth-child(even) td { background: rgba(248,249,252,0.8); }
+  }
+
+  hr {
+    border: none;
+    border-top: 2px solid var(--border);
+    margin: 2em 0;
+  }
+
+  img {
+    max-width: 100%;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+// ─── Angular Material Light Overrides ─────────────────────────────────────────
+.mat-drawer-container {
+  background: var(--bg-primary) !important;
+  color: var(--text-body) !important;
+}
+
+.mat-drawer {
+  background: var(--bg-sidebar) !important;
+  border-right: 1px solid var(--border) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.mat-toolbar {
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+.mat-expansion-panel {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.mat-expansion-panel-header {
+  padding: 0 10px !important;
+  height: 42px !important;
+  border-radius: var(--radius-sm) !important;
+  transition: background 0.18s !important;
+
+  &:hover { background: var(--bg-hover) !important; }
+
+  &.mat-expanded {
+    background: var(--bg-active) !important;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0 !important;
+  }
+}
+
+.mat-expansion-panel-header-title {
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+}
+
+.mat-expansion-indicator::after {
+  color: var(--text-muted) !important;
+}
+
+.mat-expansion-panel-body { padding: 0 !important; }
+
+.mat-progress-spinner circle {
+  stroke: var(--accent-indigo) !important;
+}

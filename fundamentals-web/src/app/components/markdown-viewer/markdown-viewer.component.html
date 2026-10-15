@@ -1,0 +1,83 @@
+<div class="viewer-wrapper">
+
+  <!-- Empty State -->
+  <ng-container *ngIf="!topic && !loading">
+    <div class="empty-state">
+      <div class="empty-illustration">
+        <div class="empty-rings"></div>
+        <div class="empty-icon-bg">
+          <mat-icon class="empty-icon">auto_stories</mat-icon>
+        </div>
+      </div>
+      <h2 class="empty-title">Pick a topic to study</h2>
+      <p class="empty-subtitle">
+        Select any subject from the sidebar to start reading.
+        All topics are fetched live from GitHub.
+      </p>
+      <div class="subject-chips">
+        <span class="chip chip-blue"><mat-icon>lan</mat-icon>Computer Networks</span>
+        <span class="chip chip-teal"><mat-icon>memory</mat-icon>Operating Systems</span>
+        <span class="chip chip-indigo"><mat-icon>developer_board</mat-icon>Architecture</span>
+        <span class="chip chip-purple"><mat-icon>account_tree</mat-icon>Organization</span>
+        <span class="chip chip-green"><mat-icon>smart_toy</mat-icon>AI Agents</span>
+        <span class="chip chip-indigo"><mat-icon>hub</mat-icon>LangChain / LangGraph</span>
+        <span class="chip chip-purple"><mat-icon>code</mat-icon>Software Engineering</span>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Loading State -->
+  <ng-container *ngIf="loading">
+    <div class="loading-state">
+      <mat-spinner diameter="44"></mat-spinner>
+      <p class="loading-label">Fetching content from GitHub…</p>
+    </div>
+  </ng-container>
+
+  <!-- Error State -->
+  <ng-container *ngIf="error && !loading">
+    <div class="error-state">
+      <mat-icon class="error-icon">error_outline</mat-icon>
+      <h3>Failed to load content</h3>
+      <p>Could not fetch this document from GitHub.</p>
+      <button mat-flat-button color="primary" (click)="loadContent()">
+        <mat-icon>refresh</mat-icon>&nbsp;Retry
+      </button>
+    </div>
+  </ng-container>
+
+  <!-- Content -->
+  <ng-container *ngIf="topic && !loading && !error">
+    <div class="content-wrapper">
+
+      <!-- Breadcrumb bar -->
+      <div class="content-topbar">
+        <div class="breadcrumb">
+          <mat-icon class="bc-icon">{{ subject?.icon || 'folder' }}</mat-icon>
+          <span class="bc-subject">{{ subject?.name }}</span>
+          <mat-icon class="bc-sep">chevron_right</mat-icon>
+          <span class="bc-topic">{{ topic.name }}</span>
+        </div>
+
+        <div class="topbar-actions">
+          <a [href]="githubUrl"
+             target="_blank"
+             rel="noopener"
+             mat-icon-button
+             matTooltip="View on GitHub"
+             class="action-btn"
+             aria-label="View on GitHub">
+            <mat-icon>open_in_new</mat-icon>
+          </a>
+        </div>
+      </div>
+
+      <!-- Markdown Content -->
+      <div class="content-scroll">
+        <article class="markdown-body" [innerHTML]="html"></article>
+      </div>
+
+    </div>
+  </ng-container>
+
+</div>

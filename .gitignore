@@ -1,0 +1,9 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Angular
+fundamentals-web/node_modules/
+fundamentals-web/dist/
+fundamentals-web/.angular/
+fundamentals-web/*.log

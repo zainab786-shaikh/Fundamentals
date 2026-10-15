@@ -1,0 +1,64 @@
+<mat-sidenav-container class="app-container">
+
+  <!-- Sidebar -->
+  <mat-sidenav
+    #sidenav
+    [mode]="isMobile ? 'over' : 'side'"
+    [opened]="!isMobile"
+    class="app-sidenav">
+    <app-sidebar
+      [activePath]="activePath"
+      (topicSelected)="onTopicSelected($event)">
+    </app-sidebar>
+  </mat-sidenav>
+
+  <!-- Main Content -->
+  <mat-sidenav-content class="app-content">
+
+    <!-- Top Toolbar -->
+    <mat-toolbar class="app-toolbar">
+      <button
+        *ngIf="isMobile"
+        mat-icon-button
+        (click)="sidenav.toggle()"
+        matTooltip="Toggle sidebar"
+        class="menu-btn"
+        aria-label="Toggle sidebar">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <div class="toolbar-logo" *ngIf="isMobile">
+        <mat-icon class="toolbar-icon">school</mat-icon>
+        <span>Fundamentals</span>
+      </div>
+
+      <div class="toolbar-title" *ngIf="activeTopic">
+        <mat-icon class="toolbar-subject-icon">{{ activeSubject?.icon || 'folder' }}</mat-icon>
+        <span class="toolbar-subject">{{ activeSubject?.name }}</span>
+        <mat-icon class="toolbar-sep">chevron_right</mat-icon>
+        <span class="toolbar-topic">{{ activeTopic.name }}</span>
+      </div>
+
+      <span class="toolbar-spacer"></span>
+
+      <a href="https://github.com/zainab786-shaikh/Fundamentals"
+         target="_blank" rel="noopener"
+         mat-icon-button
+         matTooltip="View on GitHub"
+         class="github-btn"
+         aria-label="View on GitHub">
+        <mat-icon>code</mat-icon>
+      </a>
+    </mat-toolbar>
+
+    <!-- Markdown Viewer -->
+    <div class="viewer-container">
+      <app-markdown-viewer
+        [subject]="activeSubject"
+        [topic]="activeTopic">
+      </app-markdown-viewer>
+    </div>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
