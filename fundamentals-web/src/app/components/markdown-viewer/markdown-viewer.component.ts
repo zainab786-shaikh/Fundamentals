@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { GithubService, Subject, SubTopic } from '../../services/github.service';
-import { marked, Renderer } from 'marked';
+import { marked } from 'marked';
 
 @Component({
   selector: 'app-markdown-viewer',
@@ -37,20 +37,21 @@ export class MarkdownViewerComponent implements OnChanges {
   }
 
   private configureMarked(): void {
-    const renderer = new Renderer();
-
-    // Open external links in new tab
-    renderer.link = ({ href, title, text }: { href: string; title: string | null; text: string }) => {
-      const t = title ? ` title="${title}"` : '';
-      return `<a href="${href}"${t} target="_blank" rel="noopener noreferrer">${text}</a>`;
-    };
-
-    // Wrap tables for horizontal scroll
-    renderer.table = ({ header, rows }: { header: string; rows: string }) => {
-      return `<div class="table-wrap"><table><thead>${header}</thead><tbody>${rows}</tbody></table></div>`;
-    };
-
-    marked.setOptions({ renderer, breaks: true, gfm: true } as any);
+    // Use a marked extension/walkTokens to post-process tokens
+    // For marked v9, use the override approach with useExtension
+    marked.use({
+      gfm: true,
+      breaks: true,
+      renderer: {
+        link({ href, title, text }: any) {
+          const t = title ? ` title="${title}"` : '';
+          return `<a href="${href}"${t} target="_blank" rel="noopener noreferrer">${text}</a>`;
+        },
+        table({ header, rows }: any) {
+          return `<div class="table-wrap"><table><thead>${header}</thead><tbody>${rows}</tbody></table></div>`;
+        }
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -68,7 +69,25 @@ export class MarkdownViewerComponent implements OnChanges {
     this.github.getMarkdown(this.topic.path).subscribe({
       next: md => {
         try {
-          const parsed = marked.parse(md) as string;
+          let processedMd = md;
+          if (this.topic) {
+            const parts = this.topic.path.split('/');
+            parts.pop(); // remove filename
+            const dir = parts.join('/');
+            const rawPrefix = `https://raw.githubusercontent.com/zainab786-shaikh/Fundamentals/main/${dir ? encodeURIComponent(dir) + '/' : ''}`;
+            
+            // Replace relative img src
+            processedMd = processedMd.replace(
+              /src=["'](?!https?:\/\/|\/)([^"']+)["']/gi,
+              `src="${rawPrefix}$1"`
+            );
+            // Replace markdown image links
+            processedMd = processedMd.replace(
+              /!\[(.*?)\]\(((?!https?:\/\/|\/)(.*?))\)/gi,
+              `![$1](${rawPrefix}$2)`
+            );
+          }
+          const parsed = marked.parse(processedMd) as string;
           this.html = this.sanitizer.bypassSecurityTrustHtml(parsed);
         } catch {
           this.error = true;

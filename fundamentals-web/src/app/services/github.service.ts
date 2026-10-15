@@ -65,8 +65,10 @@ export class GithubService {
   getSubjects(): Observable<Subject[]> {
     return this.http.get<GithubContent[]>(this.API).pipe(
       switchMap(roots => {
-        // Only directories (skip files at root like README)
-        const dirs = roots.filter(r => r.type === 'dir' && !r.name.startsWith('.'));
+        // Only directories (skip files at root like README, hidden folders, and fundamentals-web)
+        const dirs = roots.filter(
+          r => r.type === 'dir' && !r.name.startsWith('.') && r.name !== 'fundamentals-web'
+        );
         if (dirs.length === 0) return of([]);
 
         // For each dir, fetch its contents to find .md files

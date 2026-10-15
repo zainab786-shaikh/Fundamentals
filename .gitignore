@@ -7,3 +7,6 @@ fundamentals-web/node_modules/
 fundamentals-web/dist/
 fundamentals-web/.angular/
 fundamentals-web/*.log
+
+# Temporary scratch
+scratch/
