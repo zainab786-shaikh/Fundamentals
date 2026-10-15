@@ -3,8 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "prebuild": "python3 ../scripts/generate-catalog.py || true",
     "start": "ng serve",
     "build": "ng build",
+    "build:gh-pages": "ng build --base-href /Fundamentals/ && cp dist/fundamentals-web/browser/index.html dist/fundamentals-web/browser/404.html",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

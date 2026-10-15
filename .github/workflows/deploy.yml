@@ -1,0 +1,72 @@
+name: Deploy Fundamentals to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# Permissions needed for GitHub Pages & gh-pages branch update
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: 'fundamentals-web/package-lock.json'
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Auto-generate Fresh Catalog of Markdown Topics
+        run: python3 scripts/generate-catalog.py
+
+      - name: Install Frontend Dependencies
+        working-directory: fundamentals-web
+        run: npm ci
+
+      - name: Build Production Website for GitHub Pages
+        working-directory: fundamentals-web
+        run: npm run build:gh-pages
+
+      # 1. Update gh-pages branch (for branch-based GitHub Pages setup)
+      - name: Deploy to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./fundamentals-web/dist/fundamentals-web/browser
+          force_orphan: true
+
+      # 2. Deploy directly via GitHub Pages Action (for Actions-based GitHub Pages setup)
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload GitHub Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './fundamentals-web/dist/fundamentals-web/browser'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
