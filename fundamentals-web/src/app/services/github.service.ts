@@ -61,7 +61,7 @@ export class GithubService {
 
   constructor(private http: HttpClient) {}
 
-  /** Fetch all subjects (folders) + their .md subtopics from GitHub */
+  /** Fetch all subjects (folders) + their .md subtopics from GitHub, with localStorage & catalog.json fallback */
   getSubjects(): Observable<Subject[]> {
     return this.http.get<GithubContent[]>(this.API).pipe(
       switchMap(roots => {
@@ -96,10 +96,29 @@ export class GithubService {
         return forkJoin(requests);
       }),
       // Filter subjects that actually have markdown files
-      map(subjects => subjects.filter(s => s.topics.length > 0)),
+      map(subjects => {
+        const valid = subjects.filter(s => s.topics.length > 0);
+        if (valid.length > 0) {
+          try {
+            localStorage.setItem('fundamentals_subjects', JSON.stringify(valid));
+          } catch {}
+        }
+        return valid;
+      }),
       catchError(err => {
-        console.error('GitHub API error', err);
-        return of([]);
+        console.warn('GitHub API rate limited or unreachable. Using cache/catalog fallback.', err);
+        // 1. Try localStorage
+        try {
+          const cached = localStorage.getItem('fundamentals_subjects');
+          if (cached) {
+            const parsed = JSON.parse(cached) as Subject[];
+            if (parsed && parsed.length > 0) return of(parsed);
+          }
+        } catch {}
+        // 2. Fallback to bundled catalog.json
+        return this.http.get<Subject[]>('assets/catalog.json').pipe(
+          catchError(() => of([]))
+        );
       })
     );
   }
