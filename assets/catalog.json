@@ -1,0 +1,189 @@
+[
+  {
+    "name": "AI Agents",
+    "icon": "smart_toy",
+    "topics": [
+      {
+        "name": "1. Personalized Learning",
+        "path": "AI Agents/1. Personalized Learning.md",
+        "sha": "main"
+      },
+      {
+        "name": "10.MultiAgent",
+        "path": "AI Agents/10.MultiAgent.md",
+        "sha": "main"
+      },
+      {
+        "name": "11.MultiAgent-Implementation",
+        "path": "AI Agents/11.MultiAgent-Implementation.md",
+        "sha": "main"
+      },
+      {
+        "name": "12.Agent Systems \u2014 Easy-to-Remember Learning Guide",
+        "path": "AI Agents/12.Agent Systems \u2014 Easy-to-Remember Learning Guide.md",
+        "sha": "main"
+      },
+      {
+        "name": "12.MultiAgent2",
+        "path": "AI Agents/12.MultiAgent2.md",
+        "sha": "main"
+      },
+      {
+        "name": "2. Teaching & Content Support",
+        "path": "AI Agents/2. Teaching & Content Support.md",
+        "sha": "main"
+      },
+      {
+        "name": "3. Assessment & Feedback",
+        "path": "AI Agents/3. Assessment & Feedback.md",
+        "sha": "main"
+      },
+      {
+        "name": "4. Student Engagement & Well-bein",
+        "path": "AI Agents/4. Student Engagement & Well-bein.md",
+        "sha": "main"
+      },
+      {
+        "name": "5. Multi-Agent & Classroom Ecosystems",
+        "path": "AI Agents/5. Multi-Agent & Classroom Ecosystems.md",
+        "sha": "main"
+      },
+      {
+        "name": "6. Evaluation & Future Trends",
+        "path": "AI Agents/6. Evaluation & Future Trends.md",
+        "sha": "main"
+      },
+      {
+        "name": "summary-complete-2",
+        "path": "AI Agents/summary-complete-2.md",
+        "sha": "main"
+      },
+      {
+        "name": "summary-complete",
+        "path": "AI Agents/summary-complete.md",
+        "sha": "main"
+      }
+    ]
+  },
+  {
+    "name": "Computer Architecture",
+    "icon": "developer_board",
+    "topics": [
+      {
+        "name": "Computer Architecture",
+        "path": "Computer Architecture/Computer Architecture.md",
+        "sha": "main"
+      }
+    ]
+  },
+  {
+    "name": "Computer Networks",
+    "icon": "lan",
+    "topics": [
+      {
+        "name": "Computer Network",
+        "path": "Computer Networks/Computer Network.md",
+        "sha": "main"
+      }
+    ]
+  },
+  {
+    "name": "Computer Organization",
+    "icon": "account_tree",
+    "topics": [
+      {
+        "name": "Computer Organization",
+        "path": "Computer Organization/Computer Organization.md",
+        "sha": "main"
+      }
+    ]
+  },
+  {
+    "name": "Langchain-Langraph",
+    "icon": "smart_toy",
+    "topics": [
+      {
+        "name": "langchain-langraph1",
+        "path": "Langchain-Langraph/langchain-langraph1.md",
+        "sha": "main"
+      },
+      {
+        "name": "langchain-langraph2",
+        "path": "Langchain-Langraph/langchain-langraph2.md",
+        "sha": "main"
+      },
+      {
+        "name": "langchain-langraph3",
+        "path": "Langchain-Langraph/langchain-langraph3.md",
+        "sha": "main"
+      },
+      {
+        "name": "langchain-langraph4",
+        "path": "Langchain-Langraph/langchain-langraph4.md",
+        "sha": "main"
+      },
+      {
+        "name": "langchain-langraph5",
+        "path": "Langchain-Langraph/langchain-langraph5.md",
+        "sha": "main"
+      },
+      {
+        "name": "langchain-langraph6",
+        "path": "Langchain-Langraph/langchain-langraph6.md",
+        "sha": "main"
+      },
+      {
+        "name": "langchain-langraph7",
+        "path": "Langchain-Langraph/langchain-langraph7.md",
+        "sha": "main"
+      },
+      {
+        "name": "langchain-langraph8",
+        "path": "Langchain-Langraph/langchain-langraph8.md",
+        "sha": "main"
+      }
+    ]
+  },
+  {
+    "name": "Operating System",
+    "icon": "memory",
+    "topics": [
+      {
+        "name": "Operating System",
+        "path": "Operating System/Operating System.md",
+        "sha": "main"
+      }
+    ]
+  },
+  {
+    "name": "Software Engineering",
+    "icon": "code",
+    "topics": [
+      {
+        "name": "software engineering-1",
+        "path": "Software Engineering/software engineering-1.md",
+        "sha": "main"
+      },
+      {
+        "name": "software engineering-2",
+        "path": "Software Engineering/software engineering-2.md",
+        "sha": "main"
+      },
+      {
+        "name": "software engineering-4",
+        "path": "Software Engineering/software engineering-4.md",
+        "sha": "main"
+      },
+      {
+        "name": "software engineering",
+        "path": "Software Engineering/software engineering.md",
+        "sha": "main"
+      },
+      {
+        "name": "software-engineering-3",
+        "path": "Software Engineering/software-engineering-3.md",
+        "sha": "main"
+      }
+    ]
+  }
+]
