@@ -50,27 +50,7 @@
   <ng-container *ngIf="topic && !loading && !error">
     <div class="content-wrapper">
 
-      <!-- Breadcrumb bar -->
-      <div class="content-topbar">
-        <div class="breadcrumb">
-          <mat-icon class="bc-icon">{{ subject?.icon || 'folder' }}</mat-icon>
-          <span class="bc-subject">{{ subject?.name }}</span>
-          <mat-icon class="bc-sep">chevron_right</mat-icon>
-          <span class="bc-topic">{{ topic.name }}</span>
-        </div>
 
-        <div class="topbar-actions">
-          <a [href]="githubUrl"
-             target="_blank"
-             rel="noopener"
-             mat-icon-button
-             matTooltip="View on GitHub"
-             class="action-btn"
-             aria-label="View on GitHub">
-            <mat-icon>open_in_new</mat-icon>
-          </a>
-        </div>
-      </div>
 
       <!-- Markdown Content -->
       <div class="content-scroll">

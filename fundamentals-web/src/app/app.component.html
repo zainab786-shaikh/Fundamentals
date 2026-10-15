@@ -41,13 +41,13 @@
 
       <span class="toolbar-spacer"></span>
 
-      <a href="https://github.com/zainab786-shaikh/Fundamentals"
+      <a [href]="activeTopic ? 'https://github.com/zainab786-shaikh/Fundamentals/blob/main/' + activeTopic.path : 'https://github.com/zainab786-shaikh/Fundamentals'"
          target="_blank" rel="noopener"
          mat-icon-button
          matTooltip="View on GitHub"
          class="github-btn"
          aria-label="View on GitHub">
-        <mat-icon>code</mat-icon>
+        <mat-icon>open_in_new</mat-icon>
       </a>
     </mat-toolbar>
 
